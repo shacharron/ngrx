@@ -18,7 +18,7 @@ import { PageNotFoundComponent } from './home/page-not-found.component';
 import { UserModule } from './user/user.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from 'src/environments/environment';
+ 
 
 @NgModule({
   imports: [
@@ -31,7 +31,7 @@ import { environment } from 'src/environments/environment';
     StoreDevtoolsModule.instrument({
       name :'my app',
       maxAge :25 ,
-      logOnly : environment.production
+      //logOnly : environment.production
     })
   ],
   declarations: [
