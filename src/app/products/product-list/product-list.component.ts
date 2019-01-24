@@ -36,15 +36,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
       (products: Product[]) => this.products = products,
       (err: any) => this.errorMessage = err.error
     );
-// todo unsubscribe
-//.pipe(select('products')).subscribe(
-    this.store.select('products').subscribe(
-      products => 
-      {
-        if (products){
-          this.displayCode=products.showProductCode;
-        }
-      });
+    // todo unsubscribe
+    //.pipe(select('products')).subscribe(
+    this.store.select(fromProduct.getShowProductCode).subscribe(
+      showProductCode => this.displayCode = showProductCode
+    );
   }
 
   ngOnDestroy(): void {
