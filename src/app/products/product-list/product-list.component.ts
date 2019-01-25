@@ -29,10 +29,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(private productService: ProductService, private store: Store<fromProduct.State>) { }
 
   ngOnInit(): void {
-    this.sub = this.productService.selectedProductChanges$.subscribe(
-      selectedProduct => this.selectedProduct = selectedProduct
-    );
+    // this.sub = this.productService.selectedProductChanges$.subscribe(
+    //   selectedProduct => this.selectedProduct = selectedProduct
+    // );
 
+    this.store.pipe(select(fromProduct.getCurrentProduct)).subscribe(
+      CurrentProduct =>  this.selectedProduct = CurrentProduct
+    );
+  
     this.productService.getProducts().subscribe(
       (products: Product[]) => this.products = products,
       (err: any) => this.errorMessage = err.error
@@ -58,11 +62,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   newProduct(): void {
-    this.productService.changeSelectedProduct(this.productService.newProduct());
+    // this.productService.changeSelectedProduct(this.productService.newProduct());
+    this.store.dispatch(new ProductionAction.InitCurrentProduct());
   }
 
   productSelected(product: Product): void {
-    this.productService.changeSelectedProduct(product);
+    // this.productService.changeSelectedProduct(product);
+    this.store.dispatch(new ProductionAction.SetCurrentProduct(product));
   }
 
 }
